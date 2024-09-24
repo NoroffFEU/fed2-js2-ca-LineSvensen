@@ -11,7 +11,7 @@
   <body>
     <h1>Register</h1>
 
-    <form name="register">
+    <form id="registration-form" name="register">
       <div>
         <label for="name">Name</label>
         <input
@@ -46,6 +46,32 @@
           required
           minlength="8"
         />
+      </div>
+
+      <div>
+        <label for="avatar">Your avatar/Image URL:</label>
+        <input
+          type="url"
+          name="avatar"
+          id="avatar"
+          title="The image must be available online with a valid URL ending with jpg.">
+      </div>
+
+      <div>
+        <label for="bio">About you/Bio:</label>
+        <textarea
+          id="bio"
+          name="bio"
+          rows="8">
+        </textarea>
+      </div>
+
+      <div>
+        <label for="banner">Background/Banner URL:</label>
+        <input
+          type="banner"
+          id="banner"
+          name="banner">
       </div>
 
       <a href="/auth/login/">Login</a>
