@@ -1,3 +1,4 @@
+import {onLogout} from "../auth/logout.js";
 
 export function setLogoutListener() {
     const logoutBtn = document.getElementById('logout-btn');
@@ -9,7 +10,6 @@ export function setLogoutListener() {
 
     // Add event listener here
     logoutBtn.addEventListener('click', function () {
-        console.log('Hello')
         onLogout();
     });
 }
