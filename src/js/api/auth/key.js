@@ -1,10 +1,10 @@
-export async function getKey(name) {
+export async function getKey() {
 
+    // const username = localStorage.getItem('name');
     const accessToken = localStorage.getItem('accessToken');
-    const username = localStorage.getItem('name');
 
-    if (accessToken && username) {
-        return { accessToken, name: username };
+    if (accessToken) {
+        return accessToken
     } else {
         throw new Error('AccessToken or username not found');
     }
