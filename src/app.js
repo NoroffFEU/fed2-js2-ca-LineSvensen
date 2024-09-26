@@ -4,6 +4,7 @@ import router from "./js/router";
 
 await router(window.location.pathname);
 
-import {onLogout} from "./js/ui/auth/logout.js";
+import {setLogoutListener} from "./js/ui/global/logout.js";
 
-onLogout();
+setLogoutListener()
+

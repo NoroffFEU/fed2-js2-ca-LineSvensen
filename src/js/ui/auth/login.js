@@ -11,17 +11,16 @@ export async function onLogin(event) {
 
         if (data.data && data.data.accessToken) {
             const accessToken = data.data.accessToken;
-            const userName = data.data.email;
+            const username = data.data.name;
 
             localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('username', userName);
+            localStorage.setItem('name', username);
 
             window.location.href = '/';
         } else {
             alert('Invalid email or password. Please try again.');
         }
     } catch (error) {
-        console.error('Login error:', error);
         alert('An error occurred. Please try again later.');
     }
 }
