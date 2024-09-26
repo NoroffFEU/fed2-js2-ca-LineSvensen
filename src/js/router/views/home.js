@@ -10,18 +10,25 @@ async function renderPosts() {
     const postList = document.getElementById("post-list");
     postList.innerHTML = "";
 
-
     posts.data.forEach((post) => {
         const postHTML = `
-      <li>
+      <li id="single-post">
         <h2>${post.title}</h2>
         <p>${post.tags}</p>
         <p>${post.body}</p>
-        <img src="${post.media.url}" alt="${post.media.alt}">
+        <img src="${post.media?.url || ""}" alt="${post.media?.alt || "no image"}">
       </li>
     `;
         postList.innerHTML += postHTML;
+
+        document.getElementById('single-post').addEventListener('click', function (){
+            const postId = post.id;
+            localStorage.setItem('postId', postId);
+
+            window.location.href = 'post/index.html';
+        })
     });
 }
 
 renderPosts();
+

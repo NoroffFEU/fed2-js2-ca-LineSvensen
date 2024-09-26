@@ -4,7 +4,6 @@ import {getKey} from "../auth/key.js";
 export async function readPosts(limit = 12, page = 1, tag) {
 
     const accessToken = await getKey();
-    // const accessToken = localStorage.getItem('accessToken');
 
     const params = { limit, page };
     if (tag) {
@@ -34,10 +33,10 @@ console.log(options)
 
 }
 
-// export async function readPost(id) {
-//     const url = `${API_SOCIAL_POSTS}/${id}`;
-//     return await fetchApi(url);
-// }
+export async function readPost(id) {
+    const url = `${API_SOCIAL_POSTS}/${id}`;
+    return await fetchApi(url);
+}
 
 // export async function readPostsByUser(username, limit = 12, page = 1, tag) {
 //     const params = { limit, page, username };
