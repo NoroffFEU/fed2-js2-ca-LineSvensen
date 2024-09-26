@@ -1,17 +1,27 @@
-
 import {API_KEY, API_SOCIAL_POSTS} from "../constants.js";
 import {getKey} from "../auth/key.js";
 
-async function fetchApi(url, params = {}) {
-    const { accessToken } = await getKey();
-    const headers = {
-        'X-Noroff-API-Key': API_KEY,
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': "application/json"
-    };
-const response = await fetch(`${API_SOCIAL_POSTS}?${new URLSearchParams(params).toString()}`, {
-    method: 'GET', headers: headers
-});
+export async function readPosts(limit = 12, page = 1, tag) {
+
+    const accessToken = await getKey();
+    // const accessToken = localStorage.getItem('accessToken');
+
+    const params = { limit, page };
+    if (tag) {
+        params.tag = tag;
+    }
+
+   const options = {
+       headers: {
+           'X-Noroff-API-Key': API_KEY,
+           Authorization: `Bearer ${accessToken}`,
+           'Content-Type': "application/json"
+       },
+   }
+console.log(options)
+    const response = await fetch(`${API_SOCIAL_POSTS}?${new URLSearchParams(params).toString()}`,
+        options
+        );
 
     if (!response.ok) {
         console.log('Response:', response);
@@ -19,16 +29,9 @@ const response = await fetch(`${API_SOCIAL_POSTS}?${new URLSearchParams(params).
     }
 
     const data = await response.json();
+    console.log(data);
     return data;
-}
 
-
-export async function readPosts(limit = 12, page = 1, tag) {
-    const params = { limit, page };
-    if (tag) {
-        params.tag = tag;
-    }
-    return await fetchApi(API_SOCIAL_POSTS, params);
 }
 
 // export async function readPost(id) {
