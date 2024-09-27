@@ -1,0 +1,23 @@
+.post-section {
+    width: 100%;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+li {
+    border: 1px solid black;
+    width: 80%;
+}
+
+img {
+    width: 250px;
+    height: 300px;
+
+}
