@@ -7,8 +7,8 @@ import {readPosts} from "../../api/post/read.js";
 
 async function renderPosts() {
     const posts = await readPosts();
-    const postList = document.getElementById("post-list");
-    postList.innerHTML = "";
+    const postList = document.getElementById('post-list');
+    postList.innerHTML = '';
 
     posts.data.forEach((post) => {
         const postHTML = `
@@ -22,10 +22,10 @@ async function renderPosts() {
         postList.innerHTML += postHTML;
 
         document.getElementById('single-post').addEventListener('click', function (){
+            window.location.replace('/post/');
+
             const postId = post.id;
             localStorage.setItem('postId', postId);
-
-            window.location.href = 'post/index.html';
         })
     });
 }

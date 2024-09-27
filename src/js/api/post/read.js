@@ -1,4 +1,4 @@
-import {API_KEY, API_SOCIAL_POSTS} from "../constants.js";
+import {API_KEY, API_SOCIAL_POSTS, API_SOCIAL_PROFILES} from "../constants.js";
 import {getKey} from "../auth/key.js";
 
 export async function readPosts(limit = 12, page = 1, tag) {
@@ -17,10 +17,34 @@ export async function readPosts(limit = 12, page = 1, tag) {
            'Content-Type': "application/json"
        },
    }
-console.log(options)
-    const response = await fetch(`${API_SOCIAL_POSTS}?${new URLSearchParams(params).toString()}`,
-        options
-        );
+
+    const response = await fetch(`${API_SOCIAL_POSTS}?${new URLSearchParams(params).toString()}`, options );
+
+    if (!response.ok) {
+        console.log('Response:', response);
+        throw new Error(`Error fetching data: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+
+}
+
+export async function readPost(id) {
+    const accessToken = await getKey();
+
+    const options = {
+        headers: {
+            'X-Noroff-API-Key': API_KEY,
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': "application/json"
+        },
+    }
+
+    const postId = localStorage.getItem('postId');
+    const newUsername = localStorage.getItem('username');
+    console.log(newUsername);
+    const response = await fetch(`${API_SOCIAL_POSTS}/${postId}`, options );
 
     if (!response.ok) {
         console.log('Response:', response);
@@ -30,12 +54,6 @@ console.log(options)
     const data = await response.json();
     console.log(data);
     return data;
-
-}
-
-export async function readPost(id) {
-    const url = `${API_SOCIAL_POSTS}/${id}`;
-    return await fetchApi(url);
 }
 
 // export async function readPostsByUser(username, limit = 12, page = 1, tag) {
