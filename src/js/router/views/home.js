@@ -12,7 +12,7 @@ async function renderPosts() {
 
     posts.data.forEach((post) => {
         const postHTML = `
-      <li id="single-post">
+      <li class="single-post" data-id="${post.id}">
         <h2>${post.title}</h2>
         <p>${post.tags}</p>
         <p>${post.body}</p>
@@ -21,12 +21,13 @@ async function renderPosts() {
     `;
         postList.innerHTML += postHTML;
 
-        document.getElementById('single-post').addEventListener('click', function (){
-            window.location.replace('/post/');
-
-            const postId = post.id;
-            localStorage.setItem('postId', postId);
-        })
+    });
+    document.querySelectorAll('.single-post').forEach((postElement) => {
+      postElement.addEventListener('click', function (){
+          const postId = postElement.getAttribute('data-id');
+          localStorage.setItem('postId', postId);
+          window.location.replace('/post/');
+      });
     });
 }
 

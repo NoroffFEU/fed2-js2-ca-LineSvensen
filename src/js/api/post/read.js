@@ -41,10 +41,7 @@ export async function readPost(id) {
         },
     }
 
-    const postId = localStorage.getItem('postId');
-    const newUsername = localStorage.getItem('username');
-    console.log(newUsername);
-    const response = await fetch(`${API_SOCIAL_POSTS}/${postId}`, options );
+    const response = await fetch(`${API_SOCIAL_POSTS}/${id}`, options );
 
     if (!response.ok) {
         console.log('Response:', response);
@@ -55,6 +52,8 @@ export async function readPost(id) {
     console.log(data);
     return data;
 }
+
+
 
 // export async function readPostsByUser(username, limit = 12, page = 1, tag) {
 //     const params = { limit, page, username };
