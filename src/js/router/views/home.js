@@ -11,12 +11,21 @@ async function renderPosts() {
     postList.innerHTML = '';
 
     posts.data.forEach((post) => {
+        console.log(post)
         const postHTML = `
       <li class="single-post" data-id="${post.id}">
-        <h2>${post.title}</h2>
-        <p>${post.tags}</p>
-        <p>${post.body}</p>
-        <img src="${post.media?.url || ""}" alt="${post.media?.alt || "no image"}">
+        <div class="wrapper-post-author">
+            <img class="avatar-img" src="${post.author.avatar.url || ""}" alt="${post.author.avatar.alt || "no image"}">
+            <span class="name-post-author">${post.author.name}</span>
+        </div>
+        <img class="post-img" src="${post.media?.url || ""}" alt="${post.media?.alt || "no image"}">
+        <div>
+            <h2>${post.title}</h2>
+            <div>
+                <h2>${post._count.reactions}</h2>
+                <div><i class="fa-light fa-heart"></i></div>
+            </div>
+        </div>
       </li>
     `;
         postList.innerHTML += postHTML;

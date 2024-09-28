@@ -17,7 +17,7 @@ async function displaySinglePost () {
     <div>${singlePost.data.title}</div>
     <div>${singlePost.data.tags}</div>
     <div>${singlePost.data.body}</div>
-    <img src="${singlePost.data.media?.url || ""}" alt="${singlePost.media?.alt || "no image"}">
+    <img src="${singlePost.data.media?.url || ""}" alt="${singlePost.data.media?.alt || "no image"}">
     `
     } catch (error) {
         console.error('Error displaying single post:', error);

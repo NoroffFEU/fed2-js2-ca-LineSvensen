@@ -11,13 +11,33 @@ ul {
     gap: 20px;
 }
 
-li {
+.single-post {
     border: 1px solid black;
-    width: 80%;
+    width: 600px;
+    padding: 50px;
 }
 
-img {
-    width: 250px;
-    height: 300px;
-
+.post-img {
+    width: 400px;
+    height: 400px;
+    border-radius: 8px;
 }
+
+.wrapper-post-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 2rem;
+}
+
+.avatar-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+}
+
+.name-post-author {
+font-weight: bold;
+    font-size: 20px;
+}
+
