@@ -5,6 +5,8 @@ import {getKey} from "../auth/key.js";
 export async function readPost(id) {
     const accessToken = await getKey();
 
+    const params = { _author: true, _reactions: true, _comments: true };
+
     const options = {
         headers: {
             'X-Noroff-API-Key': API_KEY,
@@ -13,7 +15,7 @@ export async function readPost(id) {
         },
     }
 
-    const response = await fetch(`${API_SOCIAL_POSTS}/${id}`, options );
+    const response = await fetch(`${API_SOCIAL_POSTS}/${id}?${new URLSearchParams(params).toString()}`, options );
 
     if (!response.ok) {
         console.log('Response:', response);
@@ -54,11 +56,11 @@ export async function readPosts(limit = 12, page = 1, tag) {
 }
 
 // GET USERS PROFILES
-export async function readPostsByUser(username, limit = 12, page = 1, tag) {
-    const params = { limit, page, username };
-    if (tag) {
-        params.tag = tag;
-    }
-
-    return await fetchApi(`${API_SOCIAL_POSTS}/user/${username}`, params);
-}
+// export async function readPostsByUser(username, limit = 12, page = 1, tag) {
+//     const params = { limit, page, username };
+//     if (tag) {
+//         params.tag = tag;
+//     }
+//
+//     return await fetchApi(`${API_SOCIAL_PROFILES}/user/${username}`, params);
+// }

@@ -1,9 +1,7 @@
 import { authGuard } from "../../utilities/authGuard";
+import {readPosts} from "../../api/post/read.js";
 
 authGuard();
-
-
-import {readPosts} from "../../api/post/read.js";
 
 async function renderPosts() {
     const posts = await readPosts();
@@ -14,23 +12,32 @@ async function renderPosts() {
         console.log(post)
         const postHTML = `
       <li class="single-post" data-id="${post.id}">
-        <div class="wrapper-post-author">
+      <div class="wrapper-post-content">
+      <div class="wrapper-post-author">
             <img class="avatar-img" src="${post.author.avatar.url || ""}" alt="${post.author.avatar.alt || "no image"}">
             <span class="name-post-author">${post.author.name}</span>
         </div>
         <img class="post-img" src="${post.media?.url || ""}" alt="${post.media?.alt || "no image"}">
-        <div>
+        <div class="wrapper-title-and-react">
             <h2>${post.title}</h2>
-            <div>
-                <h2>${post._count.reactions}</h2>
-                <div><i class="fa-light fa-heart"></i></div>
+            <div class="wrapper-comments-and-react">
+           <div class="wrapper-comments">
+                <span class="comment-counter">${post._count.comments}</span>
+                <img class="comment-icon" src="../../../../public/images/comment.png" alt="Comment icon"/>
             </div>
+            <div class="wrapper-react">
+                <span class="react-counter">${post._count.reactions}</span>
+                <img class="heart-react-icon" src="../../../../public/images/heart-filled-border.png" alt="Heart icon"/>
+            </div> 
+</div>
+           
         </div>
+</div>
       </li>
     `;
         postList.innerHTML += postHTML;
-
     });
+
     document.querySelectorAll('.single-post').forEach((postElement) => {
       postElement.addEventListener('click', function (){
           const postId = postElement.getAttribute('data-id');
@@ -41,4 +48,3 @@ async function renderPosts() {
 }
 
 renderPosts();
-
