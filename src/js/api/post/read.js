@@ -56,11 +56,28 @@ export async function readPosts(limit = 12, page = 1, tag) {
 }
 
 // GET USERS PROFILES
-// export async function readPostsByUser(username, limit = 12, page = 1, tag) {
-//     const params = { limit, page, username };
-//     if (tag) {
-//         params.tag = tag;
-//     }
-//
-//     return await fetchApi(`${API_SOCIAL_PROFILES}/user/${username}`, params);
-// }
+export async function readPostsByUser(username, limit = 12, page = 1, tag) {
+    const accessToken = await getKey();
+
+    const params = { limit, page, username };
+    if (tag) {
+        params.tag = tag;
+    }
+
+    const options = {
+        headers: {
+            'X-Noroff-API-Key': API_KEY,
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': "application/json"
+        },
+    }
+
+    const response = await fetch(`${API_SOCIAL_PROFILES}/${username}/posts`, options);
+
+    if (!response.ok) {
+        console.log('Response:', response);
+        throw new Error(`Error fetching data: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+}

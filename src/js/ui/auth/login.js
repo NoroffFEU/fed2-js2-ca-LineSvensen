@@ -14,7 +14,7 @@ export async function onLogin(event) {
             const username = data.data.name;
 
             localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('name', username);
+            localStorage.setItem('loggedInUsername', username);
 
             window.location.href = '/';
         } else {
