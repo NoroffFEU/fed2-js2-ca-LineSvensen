@@ -43,7 +43,7 @@ import { API_SOCIAL_POSTS, API_KEY } from "../../api/constants.js"; // Import yo
 export async function createPost({ title, body, media, tags }) {
     try {
         // Retrieve the access token from session storage
-        const accessToken = sessionStorage.getItem('accessToken');
+        const accessToken = localStorage.getItem('accessToken');
 
         console.log("Access Token:", accessToken);
         console.log("API Key:", API_KEY);
