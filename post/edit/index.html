@@ -8,12 +8,11 @@
     <script type="module" src="/src/app.js"></script>
     <link href="src/css/style.css" rel="stylesheet">
   </head>
-
   <body>
     <h1>Edit Post</h1>
+    <button><a href="/">Back</a></button>
     <button><a class="my-profile" href="/profile/">My Profile</a></button>
     <button><a href="/profile/">Back</a></button>
-
     <form id="edit-posts-form">
       <label for="post-dropdown">Existing posts:</label>
       <select id="post-dropdown">
@@ -21,10 +20,13 @@
       </select>
       <label for="title">Title:</label>
       <input type="text" id="title" name="title" required>
+
       <label for="body">Main text:</label>
       <textarea id="body" name="body" rows="8"></textarea>
-      <label for="image">Image URL:</label>
-      <input type="url" id="image" name="image">
+
+      <label for="media">Image URL:</label>
+      <input type="url" id="media" name="media">
+
       <button id="submit-btn" type="button" name="submit-btn">Submit changes</button>
       <button id="delete-btn" type="button" name="delete-btn">Delete post</button>
     </form>
