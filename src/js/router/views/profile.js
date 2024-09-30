@@ -1,3 +1,63 @@
-import { authGuard } from "../../utilities/authGuard";
+import {authGuard} from "../../utilities/authGuard";
+import {readProfile} from "../../api/profile/read.js";
+import {readPostsByUser} from "../../api/post/read.js";
 
 authGuard();
+
+async function renderProfile() {
+    const loggedInUsername = localStorage.getItem('loggedInUsername');
+    const profileUsername = localStorage.getItem('profileUsername');
+
+    const usernameToUse = profileUsername || loggedInUsername;
+
+    console.log('USERNAME', usernameToUse)
+
+    if (!usernameToUse) {
+        console.error('no username found in localstorage');
+        return;
+    }
+
+    try {
+        const profileData = await readProfile(usernameToUse);
+        console.log(profileData);
+
+        const profileDetails = document.getElementById('profile-details');
+        profileDetails.innerHTML = `
+        <div class="profile-info">
+                <img class="avatar-img" src="${profileData.data.avatar.url || ""}" alt="${profileData.data.avatar.alt || "no image"}">
+                <h1>${profileData.data.name}</h1>
+                <p>${profileData.data.bio || "No bio available"}</p>
+                <div>
+                <p>Posts: ${profileData.data._count.posts}</p>
+                <p>Followers: ${profileData.data._count.followers}</p>
+                <p>Following: ${profileData.data._count.following}</p>
+</div>
+            </div>
+        `;
+
+        const posts = await readPostsByUser(usernameToUse);
+        const postGrid = document.getElementById('posts-grid');
+        postGrid.innerHTML = '';
+
+        posts.data.forEach((post) => {
+            const postHTML = `
+        <li class="single-post" data-id="${post.id}">
+            <img class="post-img" src="${post.media?.url || ""}" alt="${post.media?.alt || "no image"}">
+            <h2>${post.title}</h2>
+        </li>
+        `;
+            postGrid.innerHTML += postHTML;
+        });
+        document.querySelectorAll('.single-post').forEach((postElement) => {
+            postElement.addEventListener('click', function () {
+                const postId = postElement.getAttribute('data-id');
+                localStorage.setItem('postId', postId);
+                window.location.replace('/post/');
+            });
+        });
+    } catch (error) {
+        console.error('Error rendering profile or posts:', error)
+    }
+}
+
+renderProfile();

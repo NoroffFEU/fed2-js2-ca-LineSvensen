@@ -13,9 +13,10 @@ async function displaySinglePost () {
     try {
         const singlePost = await readPost(postId);
         console.log(singlePost);
+
         const postWrapper = document.getElementById('post-wrapper');
         postWrapper.innerHTML += `
-<div class="wrapper-post-author">
+<div class="wrapper-post-author" data-username="${singlePost.data.author.name}">
     <img class="avatar-img" src="${singlePost.data.author.avatar.url || ""}" alt="${singlePost.data.author.avatar.alt || "no image"}">
     <span class="name-post-author">${singlePost.data.author.name}</span>
 </div>
@@ -35,25 +36,31 @@ async function displaySinglePost () {
         </div>
         <div class="render-comments"></div>
     </div>
-    `
+    `;
+        document.querySelector('.wrapper-post-author').addEventListener('click', function () {
+            const username = this.getAttribute('data-username');
+            localStorage.setItem('profileUsername', username);
+            window.location.replace('/profile/');
+        })
     } catch (error) {
         console.error('Error displaying single post:', error);
     }
 
-    document.querySelectorAll('.single-post').forEach((postElement) => {
-        const heartReactIcon = document.querySelector('.heart-react-icon');
-        const postId = postElement.getAttribute('data-id');
 
-        postElement.querySelector('.wrapper-react').addEventListener('click', async function () {
-            if(heartReactIcon.src.includes('heart-empty.png')){
-                heartReactIcon.src = '../../../../public/images/heart-filled.png';
-                heartReactIcon.alt = 'Filled Heart';
-            } else {
-                heartReactIcon.src = '../../../../public/images/heart-empty.png';
-                heartReactIcon.alt = 'Empty Heart';
-            }
-        })
-    })
+    // document.querySelectorAll('.single-post').forEach((postElement) => {
+    //     const heartReactIcon = document.querySelector('.heart-react-icon');
+    //     const postId = postElement.getAttribute('data-id');
+    //
+    //     postElement.querySelector('.wrapper-react').addEventListener('click', async function () {
+    //         if(heartReactIcon.src.includes('heart-empty.png')){
+    //             heartReactIcon.src = '../../../../public/images/heart-filled.png';
+    //             heartReactIcon.alt = 'Filled Heart';
+    //         } else {
+    //             heartReactIcon.src = '../../../../public/images/heart-empty.png';
+    //             heartReactIcon.alt = 'Empty Heart';
+    //         }
+    //     })
+    // })
 }
 
 displaySinglePost();
