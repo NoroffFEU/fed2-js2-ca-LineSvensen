@@ -1,1 +1,7 @@
 @import url(_reset.css);
+
+#edit-posts-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 360px;
+}
