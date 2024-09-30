@@ -1,7 +1,7 @@
 // alert("Single Post Page");
 
 import {readPost} from "../../api/post/read.js";
-import {likePost} from "../../api/post/update.js";
+// import {likePost} from "../../api/post/update.js";
 
 async function displaySinglePost () {
     const postId = localStorage.getItem('postId');
@@ -16,14 +16,14 @@ async function displaySinglePost () {
 
         const postWrapper = document.getElementById('post-wrapper');
         postWrapper.innerHTML += `
+<div class="wrapper-post-content">
 <div class="wrapper-post-author" data-username="${singlePost.data.author.name}">
     <img class="avatar-img" src="${singlePost.data.author.avatar.url || ""}" alt="${singlePost.data.author.avatar.alt || "no image"}">
     <span class="name-post-author">${singlePost.data.author.name}</span>
 </div>
-    <div>${singlePost.data.title}</div>
-    <div>Tags: ${singlePost.data.tags}</div>
-    <div>${singlePost.data.body}</div>
-    <img src="${singlePost.data.media?.url || ""}" alt="${singlePost.data.media?.alt || "no image"}">
+    <img class="post-img" src="${singlePost.data.media?.url || ""}" alt="${singlePost.data.media?.alt || "no image"}">
+    <div class="post-title">${singlePost.data.title}</div>
+    <div class="post-body">${singlePost.data.body}</div>
     <div class="wrapper-comments-and-react">
         <div class="wrapper-comments">
             <span class="comment-counter">Comments:</span>
@@ -35,6 +35,7 @@ async function displaySinglePost () {
             <img class="heart-react-icon" src="../../../../public/images/heart-empty.png" alt="Empty Heart"/>
         </div>
         <div class="render-comments"></div>
+    </div>
     </div>
     `;
         document.querySelector('.wrapper-post-author').addEventListener('click', function () {

@@ -1,3 +1,4 @@
+
 import { API_SOCIAL_POSTS, API_KEY, API_SOCIAL_PROFILES } from "../../api/constants.js";
 
 import { readPost } from "./read.js";
@@ -69,6 +70,7 @@ export async function updatePost(id, { title, body, media }) {
             throw new Error("Could not find accessToken");
         }
 
+     
         const serverData = {
             method: 'PUT',
             headers: {
@@ -126,6 +128,12 @@ export async function updatePost(id, { title, body, media }) {
 //
 // // Fetch a single post by ID
 // export async function fetchPosts(postId) {
+// import { API_SOCIAL_POSTS, API_KEY } from "../../api/constants.js";
+// import { readPosts } from "read.js";
+// import { readPost } from "read.js";
+//
+// // Fetch a single post by ID
+// async function fetchPosts(postId) {
 //     try {
 //         const postData = await readPost(postId);
 //         console.log('Fetched posts:', postData);
@@ -137,7 +145,9 @@ export async function updatePost(id, { title, body, media }) {
 // }
 //
 // // Fetch all posts
+
 // export async function fetchAllPosts() {
+// async function fetchAllPosts() {
 //     try {
 //         const response = await readPosts(); // Call the function to read all posts
 //         return response; // Return the fetched data directly
@@ -189,3 +199,8 @@ export async function updatePost(id, { title, body, media }) {
 export async function likePost(postId) {
     // Implement like post functionality here
 }
+//
+// // Placeholder for the likePost function
+// export async function likePost(postId) {
+//     // Implement like post functionality here
+// }

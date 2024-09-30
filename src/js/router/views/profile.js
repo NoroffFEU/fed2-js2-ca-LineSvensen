@@ -17,6 +17,16 @@ async function renderProfile() {
         return;
     }
 
+    if (usernameToUse === profileUsername) {
+        document.getElementById('create-post-btn').style.display = 'none';
+        document.getElementById('edit-post-btn').style.display = 'none';
+        document.getElementById('update-profile-form').style.display = 'none';
+    } else {
+        document.getElementById('create-post-btn').style.display = 'block';
+        document.getElementById('edit-post-btn').style.display = 'block';
+        document.getElementById('update-profile-form').style.display = 'block'
+    }
+
     try {
         const profileData = await readProfile(usernameToUse);
         console.log(profileData);
@@ -24,15 +34,20 @@ async function renderProfile() {
         const profileDetails = document.getElementById('profile-details');
         profileDetails.innerHTML = `
         <div class="profile-info">
+            <div class="images-container">
+                <img class="banner-img" src="${profileData.data.banner.url || ""}" alt="${profileData.data.banner.alt || "no image"}">
                 <img class="avatar-img" src="${profileData.data.avatar.url || ""}" alt="${profileData.data.avatar.alt || "no image"}">
-                <h1>${profileData.data.name}</h1>
-                <p>${profileData.data.bio || "No bio available"}</p>
-                <div>
-                <p>Posts: ${profileData.data._count.posts}</p>
-                <p>Followers: ${profileData.data._count.followers}</p>
-                <p>Following: ${profileData.data._count.following}</p>
-</div>
             </div>
+            <div class="profile-details">
+                <h1 class="profile-username">${profileData.data.name}</h1>
+                <p class="profile-bio">${profileData.data.bio || "No bio available"}</p>
+                <div class="profile-counts">
+                    <p>Posts: ${profileData.data._count.posts}</p>
+                    <p>Followers: ${profileData.data._count.followers}</p>
+                    <p>Following: ${profileData.data._count.following}</p>
+                </div>
+            </div>
+        </div>
         `;
 
         const posts = await readPostsByUser(usernameToUse);
@@ -43,7 +58,7 @@ async function renderProfile() {
             const postHTML = `
         <li class="single-post" data-id="${post.id}">
             <img class="post-img" src="${post.media?.url || ""}" alt="${post.media?.alt || "no image"}">
-            <h2>${post.title}</h2>
+            <h2 class="post-title">${post.title}</h2>
         </li>
         `;
             postGrid.innerHTML += postHTML;
