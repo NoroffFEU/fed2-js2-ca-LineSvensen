@@ -1,5 +1,5 @@
 import { API_SOCIAL_POSTS, API_KEY, API_SOCIAL_PROFILES } from "../../api/constants.js";
-import { readPosts } from "./read.js";
+
 import { readPost } from "./read.js";
 
 
