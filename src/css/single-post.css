@@ -1,3 +1,14 @@
+#post-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.wrapper-post-content {
+    width: 600px;
+}
+
 .wrapper-post-author {
     display: flex;
     align-items: center;
@@ -21,6 +32,7 @@
     display: flex;
     align-items: center;
     gap: 2rem;
+    margin-top: 2rem;
 }
 
 .wrapper-react, .wrapper-comments {
@@ -39,3 +51,22 @@
     height: 20px;
     width: 20px;
 }
+
+.post-img {
+    width: 600px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.post-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 22px;
+    margin-bottom: .5rem;
+}
+
+.post-body {
+    font-size: 20px;
+}
+
