@@ -1,7 +1,7 @@
 // alert("Single Post Page");
 
 import {readPost} from "../../api/post/read.js";
-import {likePost} from "../../api/post/update.js";
+// import {likePost} from "../../api/post/update.js";
 
 async function displaySinglePost () {
     const postId = localStorage.getItem('postId');

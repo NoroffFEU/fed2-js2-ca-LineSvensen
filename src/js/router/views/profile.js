@@ -17,6 +17,16 @@ async function renderProfile() {
         return;
     }
 
+    if (usernameToUse === profileUsername) {
+        document.getElementById('create-post-btn').style.display = 'none';
+        document.getElementById('edit-post-btn').style.display = 'none';
+        document.getElementById('update-profile-form').style.display = 'none';
+    } else {
+        document.getElementById('create-post-btn').style.display = 'block';
+        document.getElementById('edit-post-btn').style.display = 'block';
+        document.getElementById('update-profile-form').style.display = 'block'
+    }
+
     try {
         const profileData = await readProfile(usernameToUse);
         console.log(profileData);
