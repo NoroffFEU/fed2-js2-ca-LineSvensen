@@ -76,7 +76,7 @@ export async function onUpdatePost(event) {
             title: formData.get('title'),
             body: formData.get('body'),
             media: {
-                url: formData.get('image') // Use image URL from form
+                url: formData.get('media') // Use image URL from form
             }
         };
 
