@@ -56,14 +56,23 @@ async function renderProfile() {
 
         posts.data.forEach((post) => {
             const postHTML = `
-        <li class="single-post" data-id="${post.id}">
-            <img class="post-img" src="${post.media?.url || ""}" alt="${post.media?.alt || "no image"}">
+        <li class="single-post"">
+            <img data-id="${post.id}" class="post-img" src="${post.media?.url || ""}" alt="${post.media?.alt || "no image"}">
             <h2 class="post-title">${post.title}</h2>
+            <button data-id="${post.id}" class="post-edit-btn">Edit</button>
         </li>
         `;
             postGrid.innerHTML += postHTML;
         });
-        document.querySelectorAll('.single-post').forEach((postElement) => {
+        document.querySelectorAll('.post-edit-btn').forEach((postElement) => {
+            postElement.addEventListener('click', function () {
+                const postId = postElement.getAttribute('data-id');
+                localStorage.setItem('postId', postId);
+                window.location.replace('/post/edit/');
+            })
+        });
+
+        document.querySelectorAll('.post-img').forEach((postElement) => {
             postElement.addEventListener('click', function () {
                 const postId = postElement.getAttribute('data-id');
                 localStorage.setItem('postId', postId);

@@ -1,16 +1,23 @@
-import { authGuard } from "../../utilities/authGuard";
+import {authGuard} from "../../utilities/authGuard";
 import {readPosts} from "../../api/post/read.js";
 
 authGuard();
 
-async function renderPosts() {
-    const posts = await readPosts();
-    const postList = document.getElementById('post-list');
-    postList.innerHTML = '';
+let currentPage = 1;
+let fetchedPostsCount = 0;
+const postsPerPage = 12;
+const maxPostsPerPage = 62;
+const postList = document.getElementById('post-list');
+const loadMoreButton = document.getElementById('load-more-button');
 
-    posts.data.forEach((post) => {
-        console.log(post)
-        const postHTML = `
+async function renderPosts() {
+    try {
+        const posts = await readPosts(postsPerPage, currentPage);
+        fetchedPostsCount += posts.data.length;
+
+        posts.data.forEach((post) => {
+            console.log(post)
+            const postHTML = `
       <li class="single-post" data-id="${post.id}">
       <div class="wrapper-post-content">
       <div class="wrapper-post-author">
@@ -35,16 +42,43 @@ async function renderPosts() {
 </div>
       </li>
     `;
-        postList.innerHTML += postHTML;
-    });
+            postList.innerHTML += postHTML;
+        });
 
-    document.querySelectorAll('.single-post').forEach((postElement) => {
-      postElement.addEventListener('click', function (){
-          const postId = postElement.getAttribute('data-id');
-          localStorage.setItem('postId', postId);
-          window.location.replace('/post/');
-      });
-    });
+        document.querySelectorAll('.single-post').forEach((postElement) => {
+            postElement.addEventListener('click', function () {
+                const postId = postElement.getAttribute('data-id');
+                localStorage.setItem('postId', postId);
+                window.location.replace('/post/');
+            });
+        });
+
+        if (fetchedPostsCount >= 62 && fetchedPostsCount <= maxPostsPerPage) {
+            loadMoreButton.style.display = 'block';
+        } else {
+            loadMoreButton.style.display = 'none';
+        }
+    } catch (error){
+        console.error('error rendering posts', error);
+        postList.innerHTML = '<p>Failed to load posts. Please try again later.</p>';
+    }
 }
+
+
+window.addEventListener('scroll', function () {
+    const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
+
+    if (scrollTop + clientHeight >= scrollHeight - 10) {
+        if (fetchedPostsCount <= maxPostsPerPage) {
+            currentPage++;
+            renderPosts();
+        }
+    }
+})
+
+loadMoreButton.addEventListener('click', function () {
+    currentPage++;
+    renderPosts();
+})
 
 renderPosts();
