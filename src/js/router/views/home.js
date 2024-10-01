@@ -6,7 +6,7 @@ authGuard();
 let currentPage = 1;
 let fetchedPostsCount = 0;
 const postsPerPage = 12;
-const maxPostsPerPage = 99;
+const maxPostsPerPage = 62;
 const postList = document.getElementById('post-list');
 const loadMoreButton = document.getElementById('load-more-button');
 
@@ -53,7 +53,7 @@ async function renderPosts() {
             });
         });
 
-        if (fetchedPostsCount >= 96 && fetchedPostsCount < maxPostsPerPage) {
+        if (fetchedPostsCount >= 62 && fetchedPostsCount <= maxPostsPerPage) {
             loadMoreButton.style.display = 'block';
         } else {
             loadMoreButton.style.display = 'none';
@@ -69,7 +69,7 @@ window.addEventListener('scroll', function () {
     const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
 
     if (scrollTop + clientHeight >= scrollHeight - 10) {
-        if (fetchedPostsCount < maxPostsPerPage) {
+        if (fetchedPostsCount <= maxPostsPerPage) {
             currentPage++;
             renderPosts();
         }

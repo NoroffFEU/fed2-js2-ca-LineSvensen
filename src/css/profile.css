@@ -55,7 +55,6 @@
     padding: 2rem;
     border: 2px solid #FFE1E1;
     border-radius: 1rem;
-    cursor: pointer;
 }
 
 .post-img {
@@ -63,6 +62,7 @@
     height: 300px;
     object-fit: cover;
     border-radius: 12px;
+    cursor: pointer;
 }
 
 .post-title {
