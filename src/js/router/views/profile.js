@@ -58,11 +58,10 @@ async function renderProfile() {
             }
             postElement.addEventListener('click', function () {
                 const postId = postElement.getAttribute('data-id');
-                localStorage.setItem('postId', postId);
+                localStorage.setItem('editPostId', postId);
                 window.location.replace('/post/edit/');
             })
         });
-
 
         document.querySelectorAll('.post-img').forEach((postElement) => {
             postElement.addEventListener('click', function () {
