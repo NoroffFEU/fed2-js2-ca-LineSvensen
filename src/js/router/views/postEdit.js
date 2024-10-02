@@ -3,7 +3,7 @@ import { onUpdatePost, getPostData } from "../../ui/post/update.js";
 
 authGuard();
 
-const form = document.getElementById('edit-posts-form');
+const form = document.getElementById('editPostForm');
 
     if (form) {
 
